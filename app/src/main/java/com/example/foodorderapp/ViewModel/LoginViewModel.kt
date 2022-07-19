@@ -18,6 +18,7 @@ class LoginViewModel : ViewModel() {
     private lateinit var keyy: String
     private lateinit var userModel: UserModel
     val isLoginSuccessful: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
+  val role: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
 
     fun login(enteredEmail: String, enteredPassword: String) {//reference: DatabaseReference) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,6 +33,13 @@ class LoginViewModel : ViewModel() {
                             if (getUser != null) {
                                 if (getUser.email.equals(enteredEmail)&& getUser.pin?.equals(enteredPassword.toInt())==true ){
                                     isLoginSuccessful.postValue(true)
+                                    if (getUser.type.equals("Server")){
+                                        role.postValue(false)
+                                    }
+                                    else
+                                    {
+                                        role.postValue(true)
+                                    }
                                 }
                                 else
                                 {

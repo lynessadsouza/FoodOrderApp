@@ -45,6 +45,13 @@ class LoginPage : AppCompatActivity() {
                 ).show()
             }
         }
+        loginRegisterViewModel?.role?.observe(this) { success ->
+            if (success) {
+                Log.d("hey","hey manager")
+            } else {
+                Log.d("hey","hey server")
+            }
+        }
 
     }
 
